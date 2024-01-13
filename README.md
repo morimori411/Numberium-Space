@@ -9,6 +9,10 @@ Attractive forces work between numbers, and the greater GCD between numbers, and
 このゲームはSDLライブラリを用いてC++で制作されています。  
 The game is produced in C++ using the SDL library.  
 
+## バグ報告 Bug Reports
+バグ報告はGithubのIssueまたは開発者のTwitterからお願いします。  
+Please report bugs via Issue on Github or developer Twitter.  
+
 ## 開発者 Developer
 morimori  
 Twitter JP:@m11ori4mori EN:@m11ori4morien
