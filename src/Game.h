@@ -8,7 +8,7 @@
 
 namespace game{
     // 定数  Constants
-    const std::string GAME_TITLE = ""; // ゲーム名  Name of game
+    const std::string GAME_TITLE = "Numberium"; // ゲーム名  Name of game
     const int16_t WINDOW_WIDTH = 540; // ウィンドウの横幅  Width of window
     const int16_t WINDOW_HEIGHT = 540; // ウィンドウの縦幅  Height of window
     const uint32_t FLAGS_OF_SDL_INIT = SDL_INIT_EVERYTHING; // SDLライブラリの初期化フラグ  Flags for SDL initialization
