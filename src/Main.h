@@ -6,3 +6,5 @@
 #include "Pictures/Fonts.h"
 #include "Pictures/Textures.h"
 #include "Pictures/Pictures.h"
+#include "Numbers/Numbers.h"
+#include "Stage/Stage.h"

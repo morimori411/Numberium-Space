@@ -7,6 +7,8 @@ int main(int argc, char* argv[]){
     pictures::Fonts* fonts = new pictures::Fonts;
     pictures::TextTextures* text_textures = new pictures::TextTextures(game, fonts);
     pictures::Pictures* pictures = new pictures::Pictures(game, textures, text_textures);
+    numbers::Numbers* numbers = new numbers::Numbers;
+    stage::Stage* stage = new stage::Stage;
 
     // メインループ  Main loop
     SDL_Event event;
@@ -28,5 +30,7 @@ int main(int argc, char* argv[]){
     delete fonts;
     delete text_textures;
     delete pictures;
+    delete numbers;
+    delete stage;
     return 0;
 }

@@ -4,10 +4,11 @@
 
 namespace common{
     struct Vec2{
-        double m_x; // x
-        double m_y; // y
+        double m_x;
+        double m_y;
 
-        Vec2() = default; // コンストラクタ  Constructor
-        Vec2(double x, double y); // コンストラクタ  Constructor
+        // コンストラクタ
+        Vec2();
+        Vec2(double x, double y);
     };
 }
