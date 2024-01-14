@@ -9,6 +9,7 @@ int main(int argc, char* argv[]){
     pictures::Pictures* pictures = new pictures::Pictures(game, textures, text_textures);
     numbers::Numbers* numbers = new numbers::Numbers;
     stage::Stage* stage = new stage::Stage;
+    numbers::Number* number = new numbers::Number(pictures, 0, 100, common::Vec2(100, 100));
 
     // メインループ  Main loop
     SDL_Event event;
@@ -18,7 +19,8 @@ int main(int argc, char* argv[]){
             // ゲーム終了  End of game
             if(event.type == SDL_QUIT) game->SetIsRunning(false);
         }
-
+        number->Move();
+        number->Display();
         pictures->DisplayAll();
         game->Wait();
     }
