@@ -21,5 +21,8 @@ namespace stage{
         ~Stage();
         // 壁を表示
         void Display();
+        // アクセサ
+        uint64_t GetHeight() const {return m_height;}
+        uint64_t GetWidth() const {return m_width;}
     };
 }
