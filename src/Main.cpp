@@ -7,9 +7,8 @@ int main(int argc, char* argv[]){
     pictures::Fonts* fonts = new pictures::Fonts;
     pictures::TextTextures* text_textures = new pictures::TextTextures(game, fonts);
     pictures::Pictures* pictures = new pictures::Pictures(game, textures, text_textures);
-    numbers::Numbers* numbers = new numbers::Numbers;
-    stage::Stage* stage = new stage::Stage;
-    numbers::Number* number = new numbers::Number(pictures, 0, 100, common::Vec2(100, 100));
+    stage::Stage* stage = new stage::Stage(game, 500, 500);
+    numbers::Numbers* numbers = new numbers::Numbers(pictures, stage);
 
     // メインループ  Main loop
     SDL_Event event;
@@ -19,8 +18,12 @@ int main(int argc, char* argv[]){
             // ゲーム終了  End of game
             if(event.type == SDL_QUIT) game->SetIsRunning(false);
         }
-        number->Move();
-        number->Display();
+
+        numbers->Add();
+        numbers->Delete();
+        numbers->CalcAttraction();
+        numbers->MoveAll();
+        numbers->DisplayAll();
         pictures->DisplayAll();
         game->Wait();
     }
@@ -33,6 +36,6 @@ int main(int argc, char* argv[]){
     delete text_textures;
     delete pictures;
     delete numbers;
-    delete stage;
+    // delete stage;
     return 0;
 }

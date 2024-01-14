@@ -1,11 +1,14 @@
 #pragma once
 
-#include <vector>
+#include <random>
 #include "../Pictures/Pictures.h"
 #include "../Common/Vector.h"
+#include "../Stage/Stage.h"
 
 namespace numbers{
-        class Number{
+    const double CONSTANT_OF_ATTRACTION = 10.0;
+
+    class Number{
         private:
         pictures::Pictures* m_pictures;
         int32_t m_id; // 各数字に個別に割り振る番号  Number to be assigned to each digit individually
@@ -20,18 +23,26 @@ namespace numbers{
         ~Number();
         void Move();
         void Display();
+        // アクセサ  Accessor
+        int64_t GetValue() const {return m_value;}
+        common::Vec2 GetCoordinate() const {return m_coordinate;}
+        common::Vec2 GetAcceleration() const {return m_acceleration;}
+        void SetAcceleration(common::Vec2 acceleration){m_acceleration = acceleration;}
     };
 
     class Numbers{
         private:
+        std::random_device m_random;
         pictures::Pictures* m_pictures;
-        std::vector<Number*> m_numbers;
+        stage::Stage* m_stage;
+        int32_t m_id;
+        std::map<int32_t, Number*> m_numbers;
 
         public:
-        Numbers();
+        Numbers(pictures::Pictures* pictures, stage::Stage* stage);
         ~Numbers();
         // 毎フレーム呼び出し 数字をランダムに追加  Every frame call. Add numbers randomly.
-        void Add(pictures::Pictures* pictures, uint64_t value, common::Vec2 coordinate);
+        void Add();
         // 毎フレーム呼び出し 数字をランダムに削除  Every frame call. Delete numbers randomly.
         void Delete();
         // 毎フレーム呼び出し 各数字間の引力を計算  Every frame call. Calculate the attraction between each number.
