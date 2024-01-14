@@ -8,7 +8,7 @@ int main(int argc, char* argv[]){
     pictures::TextTextures* text_textures = new pictures::TextTextures(game, fonts);
     pictures::Pictures* pictures = new pictures::Pictures(game, textures, text_textures);
     numbers::Numbers* numbers = new numbers::Numbers;
-    stage::Stage* stage = new stage::Stage;
+    stage::Stage* stage = new stage::Stage(game, 1080, 1920);
 
     // メインループ  Main loop
     SDL_Event event;
