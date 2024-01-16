@@ -10,7 +10,7 @@ numbers::Number::Number(game::Game* game, pictures::Pictures* pictures, int32_t 
 {
     m_collision = new collision::Circle(game, m_coordinate.m_x, m_coordinate.m_y, RADIUS_OF_COLLISION);
     m_layerno = {pictures::NUMBER, m_id};
-    m_pictures->Add(m_layerno, "data/fonts/MPLUS1Code-Regular.ttf", std::to_string(m_value), 16, m_coordinate);
+    m_pictures->Add(m_layerno, "data/fonts/MPLUS1Code-Regular.ttf", std::to_string(m_value), 20, m_coordinate);
     m_pictures->SetPosition(m_layerno, 5);
 }
 
@@ -50,9 +50,9 @@ void numbers::Numbers::Add(){
     std::uniform_int_distribution<int32_t> dist1(0, 59);
     if(dist1(m_random) % 60 == 0){
         // 数字を追加  Add number
-        std::normal_distribution<> dist2(0, 100);
-        std::uniform_real_distribution<double> dist3(0, m_stage->GetHeight());
-        std::uniform_real_distribution<double> dist4(0, m_stage->GetWidth());
+        std::normal_distribution<> dist2(0, 50);
+        std::uniform_real_distribution<double> dist3(0, m_stage->GetWidth());
+        std::uniform_real_distribution<double> dist4(0, m_stage->GetHeight());
         m_numbers[m_id] = new numbers::Number(m_game, m_pictures, m_id, int(std::abs(dist2(m_random))) + 1, {dist3(m_random), dist4(m_random)});
         m_id++;
     }
@@ -61,8 +61,8 @@ void numbers::Numbers::Add(){
 void numbers::Numbers::Delete(){
     // 各数字に対して  For each number
     for(auto itr = m_numbers.begin(); itr != m_numbers.end(); itr++){
-        // 10000フレームに一度の頻度で  Once every 10,000 frames
-        std::uniform_int_distribution<int32_t> dist1(0, 9999);
+        // 30000フレームに一度の頻度で  Once every 10,000 frames
+        std::uniform_int_distribution<int32_t> dist1(0, 30000);
         if(dist1(m_random) % 10000 == 0){
             // 数字を削除  Delete number
             delete itr->second;
@@ -83,7 +83,7 @@ void numbers::Numbers::CalcAttraction(){
             double dist = common::dist(number1->GetCoordinate().m_x, number1->GetCoordinate().m_y, number2->GetCoordinate().m_x, number2->GetCoordinate().m_y);
             common::Vec2 distxy = number2->GetCoordinate() - number1->GetCoordinate();
             int64_t gcd = std::gcd(number1->GetValue(), number2->GetValue());
-            double attraction_mag = CONSTANT_OF_ATTRACTION * std::pow((gcd - 1), 3.0) / dist;
+            double attraction_mag = CONSTANT_OF_ATTRACTION * std::pow((gcd - 1), 4.0) / dist;
             common::Vec2 attraction = {attraction_mag * (distxy.m_x / dist), attraction_mag * (distxy.m_y / dist)};
             number1->SetAcceleration(number1->GetAcceleration() + attraction);
         }
