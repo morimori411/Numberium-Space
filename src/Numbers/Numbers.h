@@ -6,7 +6,7 @@
 #include "../Stage/Stage.h"
 
 namespace numbers{
-    const double CONSTANT_OF_ATTRACTION = 10.0;
+    const double CONSTANT_OF_ATTRACTION = 1.0;
 
     class Number{
         private:

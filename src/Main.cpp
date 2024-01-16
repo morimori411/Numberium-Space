@@ -21,8 +21,10 @@ int main(int argc, char* argv[]){
 
         numbers->Add();
         numbers->Delete();
-        numbers->CalcAttraction();
-        numbers->MoveAll();
+        for(int i = 0; i < 10; i++){
+            numbers->CalcAttraction();
+            numbers->MoveAll();
+        }
         numbers->DisplayAll();
         pictures->DisplayAll();
         game->Wait();
