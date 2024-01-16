@@ -2,7 +2,7 @@
 
 collision::Rectangle::Rectangle(){}
 
-collision::Rectangle::Rectangle(game::Game* game, int16_t right_display_x, int16_t top_display_y, int16_t left_display_x, int16_t bottom_display_y){
+collision::Rectangle::Rectangle(game::Game* game, double right_display_x, double top_display_y, double left_display_x, double bottom_display_y){
     this->game = game;
     this->right_display_x = right_display_x;
     this->top_display_y = top_display_y;
@@ -12,7 +12,7 @@ collision::Rectangle::Rectangle(game::Game* game, int16_t right_display_x, int16
 
 collision::Circle::Circle(){}
 
-collision::Circle::Circle(game::Game* game, int16_t center_display_x, int16_t center_display_y, uint16_t radius){
+collision::Circle::Circle(game::Game* game, double center_display_x, double center_display_y, double radius){
     this->game = game;
     this->center_display_x = center_display_x;
     this->center_display_y = center_display_y;
@@ -37,13 +37,13 @@ bool collision::isInCollision(collision::Rectangle* rectangle1, collision::Recta
 
 float collision::isInCollision(collision::Rectangle* rectangle, collision::Circle* circle){
     // 円の右端の画面x座標
-    int16_t circle_right_display_x = circle->center_display_x + circle->radius;
+    double circle_right_display_x = circle->center_display_x + circle->radius;
     // 円の上端の画面y座標
-    int16_t circle_top_display_y = circle->center_display_y - circle->radius;
+    double circle_top_display_y = circle->center_display_y - circle->radius;
     // 円の左端の画面x座標
-    int16_t circle_left_display_x = circle->center_display_x - circle->radius;
+    double circle_left_display_x = circle->center_display_x - circle->radius;
     // 円の下端の画面y座標
-    int16_t circle_bottom_display_y = circle->center_display_y + circle->radius;
+    double circle_bottom_display_y = circle->center_display_y + circle->radius;
     // 円が矩形であると仮定して衝突判定
     Rectangle* virtual_rectangle = new Rectangle(nullptr, circle_right_display_x, circle_top_display_y, circle_left_display_x, circle_bottom_display_y);
     // 矩形で判定して衝突する場合

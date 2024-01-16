@@ -11,3 +11,11 @@ common::Vec2::Vec2(double x, double y)
 ,m_y(y)
 {
 }
+
+double common::Vec2::CalcMag(){
+    return std::sqrt(m_x * m_x + m_y * m_y);
+}
+
+double common::Vec2::CalcDir(){
+    return std::atan2(m_y, m_x);
+}
