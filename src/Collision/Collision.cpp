@@ -2,12 +2,12 @@
 
 collision::Rectangle::Rectangle(){}
 
-collision::Rectangle::Rectangle(game::Game* game, double right_display_x, double top_display_y, double left_display_x, double bottom_display_y){
+collision::Rectangle::Rectangle(game::Game* game, double right_display_x, double bottom_display_y, double left_display_x, double top_display_y){
     this->game = game;
     this->right_display_x = right_display_x;
-    this->top_display_y = top_display_y;
-    this->left_display_x = left_display_x;
     this->bottom_display_y = bottom_display_y;
+    this->left_display_x = left_display_x;
+    this->top_display_y = top_display_y;
 }
 
 collision::Circle::Circle(){}
@@ -104,13 +104,6 @@ float collision::isInCollision(collision::Rectangle* rectangle, collision::Circl
 }
 
 float collision::isInCollision(collision::Circle* circle, collision::Rectangle* rectangle){
-    // 当たっている場合
-    if(isInCollision(rectangle, circle)){
-
-    // 当たっていない場合
-    }else{
-        return -1;
-    }
     return isInCollision(rectangle, circle);
 }
 

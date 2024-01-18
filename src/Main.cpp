@@ -38,6 +38,7 @@ int main(int argc, char* argv[]){
     delete fonts;
     delete text_textures;
     delete pictures;
+    delete stage;
     delete numbers;
     // delete stage;
     return 0;

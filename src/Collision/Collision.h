@@ -18,7 +18,7 @@ namespace collision{
 
         // コンストラクタ
         Rectangle();
-        Rectangle(game::Game* game, double right_display_x, double top_display_y, double left_display_x, double bottom_display_y);
+        Rectangle(game::Game* game, double right_display_x, double bottom_display_y, double left_display_x, double top_display_y);
     };
 
     // 円形の当たり判定

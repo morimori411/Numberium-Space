@@ -98,11 +98,32 @@ void numbers::Numbers::MoveAll(){
 
 void numbers::Numbers::CalcCollisionAll(){
     for(auto itr1 = m_numbers.begin(); itr1 != m_numbers.end(); itr1++){
+        numbers::Number* number1 = itr1->second;
+        // 数字が壁と衝突している場合  If the number collide with a wall
+        // 右の壁  Right wall
+        if(collision::isInCollision(number1->GetCollision(), m_stage->GetRight()) != -1){
+            number1->SetCoordinate({m_stage->GetWidth() - RADIUS_OF_COLLISION * 1.01, number1->GetCoordinate().m_y});
+            number1->SetVelocity({number1->GetVelocity().m_x * -1, number1->GetVelocity().m_y});
+        }
+        // 下の壁  Bottom wall
+        if(collision::isInCollision(number1->GetCollision(), m_stage->GetBottom()) != -1){
+            number1->SetCoordinate({number1->GetCoordinate().m_x, m_stage->GetHeight() - RADIUS_OF_COLLISION * 1.01});
+            number1->SetVelocity({number1->GetVelocity().m_x, number1->GetVelocity().m_y * -1});
+        }
+        // 左の壁  Left wall
+        if(collision::isInCollision(number1->GetCollision(), m_stage->GetLeft()) != -1){
+            number1->SetCoordinate({RADIUS_OF_COLLISION * 1.01, number1->GetCoordinate().m_y});
+            number1->SetVelocity({number1->GetVelocity().m_x * -1, number1->GetVelocity().m_y});
+        }
+        // 上の壁  Top wall
+        if(collision::isInCollision(number1->GetCollision(), m_stage->GetTop()) != -1){
+            number1->SetCoordinate({number1->GetCoordinate().m_x, RADIUS_OF_COLLISION * 1.01});
+            number1->SetVelocity({number1->GetVelocity().m_x, number1->GetVelocity().m_y* -1});
+        }
         for(auto itr2 = std::next(itr1); itr2 != m_numbers.end(); itr2++){
-            // 2つの数字が衝突している場合
+            // 2つの数字が衝突している場合  If two numbers are in collision
             float dir = collision::isInCollision(itr1->second->GetCollision(), itr2->second->GetCollision());
             if(dir != -1){
-                numbers::Number* number1 = itr1->second;
                 numbers::Number* number2 = itr2->second;
                 // 数字を移動前の位置に戻す  Restore numbers to their pre-movement positions
                 number2->SetCoordinate(number1->GetCoordinate() + common::Vec2(RADIUS_OF_COLLISION * 2.01 * cos(dir + M_PI), RADIUS_OF_COLLISION * 2.01 * sin(dir + M_PI)));
