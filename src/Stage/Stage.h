@@ -24,5 +24,9 @@ namespace stage{
         // アクセサ
         uint64_t GetHeight() const {return m_height;}
         uint64_t GetWidth() const {return m_width;}
+        collision::Rectangle GetRight() const {return m_right;}
+        collision::Rectangle GetBottom() const {return m_bottom;}
+        collision::Rectangle GetLeft() const {return m_left;}
+        collision::Rectangle GetTop() const {return m_top;}
     };
 }
