@@ -9,11 +9,11 @@
 namespace game{
     // 定数  Constants
     const std::string GAME_TITLE = "Numberium"; // ゲーム名  Name of game
-    const int16_t WINDOW_WIDTH = 540; // ウィンドウの横幅  Width of window
-    const int16_t WINDOW_HEIGHT = 540; // ウィンドウの縦幅  Height of window
+    const int16_t WINDOW_WIDTH = 1920; // ウィンドウの横幅  Width of window
+    const int16_t WINDOW_HEIGHT = 1080; // ウィンドウの縦幅  Height of window
     const uint32_t FLAGS_OF_SDL_INIT = SDL_INIT_EVERYTHING; // SDLライブラリの初期化フラグ  Flags for SDL initialization
     const uint32_t FLAGS_OF_IMG_INIT = IMG_INIT_PNG | IMG_INIT_JPG; // SDL_imageライブラリの初期化フラグ  Flags for SDL_image initialization
-    const uint32_t WINDOW_FLAGS = 0; // ウィンドウ設定のフラグ  Flags for window settings
+    const uint32_t WINDOW_FLAGS = SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_BORDERLESS; // ウィンドウ設定のフラグ  Flags for window settings
     const uint32_t RENDERER_FLAGS = 0; // レンダラー設定のフラグ  Flags for renderer settings
     const uint8_t RENDER_SCALE = 1; // レンダースケール  The render scale
     const uint16_t FPS = 60; // fps

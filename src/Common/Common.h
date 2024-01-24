@@ -10,5 +10,5 @@ namespace common{
         uint8_t a;
     };
 
-    int64_t dist(int32_t x1, int32_t y1, int32_t x2, int32_t y2);
+    double dist(double x1, double y1, double x2, double y2);
 }

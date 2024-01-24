@@ -11,7 +11,7 @@ void collision::DrawCollision(collision::Rectangle* rectangle){
 
 void collision::DrawCollision(collision::Circle* circle){
     // x座標ごとに線を引いて円を描画
-    SDL_Point points[(circle->radius * 2 + 1) * 2];
+    SDL_Point points[int((circle->radius * 2 + 1) * 2)];
     // // 各x座標に関して
     for(int i = 0; i <= circle->radius * 2; i++){
         // x座標
