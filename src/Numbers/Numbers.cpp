@@ -61,11 +61,19 @@ void numbers::Numbers::Add(){
 void numbers::Numbers::Delete(){
     // 各数字に対して  For each number
     for(auto itr = m_numbers.begin(); itr != m_numbers.end(); itr++){
+        numbers::Number* number = itr->second;
         // DELETE_FREQUENCYフレームに一度の頻度で  Once every DELETE_FREQUENCY frames
         std::uniform_int_distribution<int32_t> dist1(0, DELETE_FREQUENCY - 1);
         if(dist1(m_random) % DELETE_FREQUENCY == 0){
             // 数字を削除  Delete number
-            delete itr->second;
+            delete number;
+            m_numbers.erase(itr);
+        }
+        // 数字がステージより100ピクセル以上外に出た場合  If the number is more than 100 pixels outside of the stage
+        double x = number->GetCoordinate().m_x, y = number->GetCoordinate().m_y;
+        if(x < -100 || x > m_stage->GetWidth() || y < -100 || y > m_stage->GetHeight()){
+            // 数字を削除  Delete number
+            delete number;
             m_numbers.erase(itr);
         }
     }
