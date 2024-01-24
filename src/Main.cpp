@@ -12,6 +12,7 @@ int main(int argc, char* argv[]){
 
     // メインループ  Main loop
     SDL_Event event;
+    fonts->LoadFont("data/fonts/MPLUS1Code-Regular.ttf");
     while(game->GetIsRunning()){
         // SDL_Event
         while(SDL_PollEvent(&event)){
