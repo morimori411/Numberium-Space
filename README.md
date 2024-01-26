@@ -3,7 +3,7 @@
 
 ## どんなゲーム？ What is this game?
 ただ数字を眺めるだけです。  
-Just look at the numbers.  
+Just watch the numbers.  
 数字間には引力が働き、数字と数字の最大公約数が大きいほど、また数字間の距離が近いほど、強く引き合います。  
 Attractive forces work between numbers, and the greater GCD between numbers, and the closer the distance between numbers, the stronger the force.  
 このゲームはSDLライブラリを用いてC++で制作されています。  
