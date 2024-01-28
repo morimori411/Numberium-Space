@@ -23,7 +23,7 @@ int main(int argc, char* argv[]){
 
         numbers->Add();
         numbers->Delete();
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < game::SIMULATION_ACCURACY; i++){
             numbers->CalcAttraction();
             numbers->MoveAll();
             numbers->CalcCollisionAll();

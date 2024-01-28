@@ -17,6 +17,7 @@ namespace game{
     const uint32_t RENDERER_FLAGS = 0; // レンダラー設定のフラグ  Flags for renderer settings
     const uint8_t RENDER_SCALE = 1; // レンダースケール  The render scale
     const uint16_t FPS = 60; // fps
+    const uint16_t SIMULATION_ACCURACY = 10; // fpsに対する内部フレームの倍率  Internal frame multiplier relative to fps
 
     // ゲーム全体を管理するクラス  Class for managing games in general
     class Game{

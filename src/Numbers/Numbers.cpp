@@ -91,7 +91,7 @@ void numbers::Numbers::CalcAttraction(){
             double dist = pow(sqrt(common::dist(number1->GetCoordinate().m_x, number1->GetCoordinate().m_y, number2->GetCoordinate().m_x, number2->GetCoordinate().m_y)), -POWERS_OF_DIST);
             common::Vec2 distxy = number2->GetCoordinate() - number1->GetCoordinate();
             int64_t gcd = std::gcd(number1->GetValue(), number2->GetValue());
-            double attraction_mag = CONSTANT_OF_ATTRACTION * std::pow((gcd - 1), POWERS_OF_GCD) / dist;
+            double attraction_mag = (CONSTANT_OF_ATTRACTION / std::pow(game::SIMULATION_ACCURACY, 2)) * std::pow((gcd - 1), POWERS_OF_GCD) / dist;
             common::Vec2 attraction = {attraction_mag * (distxy.m_x / dist), attraction_mag * (distxy.m_y / dist)};
             number1->SetAcceleration(number1->GetAcceleration() + attraction);
         }
@@ -106,13 +106,20 @@ void numbers::Numbers::MoveAll(){
 }
 
 void numbers::Numbers::CalcCollisionAll(){
-    for(auto itr1 = m_numbers.begin(); itr1 != m_numbers.end(); itr1++){
+    // 衝突処理で最後に処理される数字が他の数字を押しのけることができないため、ランダムな順で処理する
+    // The last number processed in the collision process cannot push the other numbers away, so they are processed in random order
+    std::vector<int32_t> order(m_numbers.size());
+    std::iota(order.begin(), order.end(), 0);
+    std::shuffle(order.begin(), order.end(), m_random);
+    for(int i = 0; i < int(m_numbers.size()); i++){
+        auto itr1 = next(m_numbers.begin(), order[i]);
         numbers::Number* number1 = itr1->second;
-        for(auto itr2 = std::next(itr1); itr2 != m_numbers.end(); itr2++){
+        for(int j = i + 1; j < int(m_numbers.size()); j++){
+            auto itr2 = next(m_numbers.begin(), order[j]);
+            numbers::Number* number2 = itr2->second;
             // 2つの数字が衝突している場合  If two numbers are in collision
-            float dir = collision::isInCollision(itr1->second->GetCollision(), itr2->second->GetCollision());
+            float dir = collision::isInCollision(number1->GetCollision(), number2->GetCollision());
             if(dir != -1){
-                numbers::Number* number2 = itr2->second;
                 // 数字を移動前の位置に戻す  Restore numbers to their pre-movement positions
                 number2->SetCoordinate(number1->GetCoordinate() + common::Vec2(RADIUS_OF_COLLISION * 2.01 * cos(dir + M_PI), RADIUS_OF_COLLISION * 2.01 * sin(dir + M_PI)));
                 // 2つの数字の速度ベクトルを衝突方向に分解し、入れ替える  Resolution and swap the velocity vectors of two numbers in the direction of collision
