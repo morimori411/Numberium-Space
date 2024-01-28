@@ -8,19 +8,47 @@ int main(int argc, char* argv[]){
     pictures::TextTextures* text_textures = new pictures::TextTextures(game, fonts);
     pictures::Camera* camera = new pictures::Camera;
     pictures::Pictures* pictures = new pictures::Pictures(game, textures, text_textures, camera);
-    stage::Stage* stage = new stage::Stage(game, 1080, 1920);
+    stage::Stage* stage = new stage::Stage(game, 5000, 5000);
     numbers::Numbers* numbers = new numbers::Numbers(game, pictures, stage);
 
     // メインループ  Main loop
     SDL_Event event;
     fonts->LoadFont("data/fonts/MPLUS1Code-Regular.ttf");
+    bool current_left_button, old_left_button;// 左クリックの状態  Left-click status
+    int32_t mouse_x, mouse_y; // マウスの座標  Mouse coordinates
+    common::Vec2 mouse_abs_xy; // マウスの絶対座標  Mouse absolute coordinates 
+    common::Vec2 drag_start_mouse_xy; // ドラッグ開始時のマウスの座標  Mouse coordinates of the start of the drag
+    common::Vec2 drag_start_camera_xy; // ドラッグ開始時のカメラの座標  Camera coordinates at the start of the drag
     while(game->GetIsRunning()){
+        current_left_button = false;
         // SDL_Event
         while(SDL_PollEvent(&event)){
+            // ズーム  Zoom
+            if(event.type == SDL_MOUSEWHEEL){
+                SDL_GetMouseState(&mouse_x, &mouse_y);
+                mouse_abs_xy = camera->GetXY() + common::Vec2(mouse_x, mouse_y) * (1 / camera->GetZoom());
+                camera->SetZoom(std::max(0.25, camera->GetZoom() + event.wheel.y * 0.25));
+                camera->SetXY(mouse_abs_xy - common::Vec2(mouse_x, mouse_y) * (1 / camera->GetZoom()));
+            }
             // ゲーム終了  End of game
             if(event.type == SDL_QUIT) game->SetIsRunning(false);
         }
-
+        // マウスでのカメラ操作  Camera operation with mouse
+        // 新しく左クリックされたとき  When newly left-clicked
+        current_left_button = SDL_GetMouseState(&mouse_x, &mouse_y) & SDL_BUTTON(1);
+        if(current_left_button && !old_left_button){
+            // ドラッグ開始
+            drag_start_mouse_xy.m_x = mouse_x;
+            drag_start_mouse_xy.m_y = mouse_y;
+            drag_start_camera_xy = camera->GetXY();
+        }
+        // 左クリックされているとき  When the left mouse button is clicked
+        if(current_left_button){
+            // カメラを移動させる
+            camera->SetXY(drag_start_camera_xy - common::Vec2((mouse_x - drag_start_mouse_xy.m_x) * (1 / camera->GetZoom()), (mouse_y - drag_start_mouse_xy.m_y) * (1 / camera->GetZoom())));
+        }
+        // 現在の左クリック状態を次のフレームへ引き継ぐ  The current left-click state is carried over to the next frame.
+        old_left_button = current_left_button;
         numbers->Add();
         numbers->Delete();
         for(int i = 0; i < game::SIMULATION_ACCURACY; i++){

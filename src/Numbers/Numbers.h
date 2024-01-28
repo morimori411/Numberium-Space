@@ -8,10 +8,10 @@
 
 namespace numbers{
     const uint32_t ADD_FREQUENCY = 30; // 数字が追加される頻度[フレーム]  Frequency with which numbers are added[frame]
-    const uint32_t DELETE_FREQUENCY = 3000; // 数字が削除される頻度[フレーム]  Frequency with which numbers are deleted[frame]
+    const uint32_t DELETE_FREQUENCY = 5000; // 数字が削除される頻度[フレーム]  Frequency with which numbers are deleted[frame]
     const uint32_t STANDARD_DEVIATION = 50; // 標準偏差
     const double CONSTANT_OF_ATTRACTION = 0.3; // 万有引力定数
-    const double POWERS_OF_DIST = -1.5; // 引力計算における距離の累乗数  Number of powers of distance in attraction force calculations
+    const double POWERS_OF_DIST = -1.4; // 引力計算における距離の累乗数  Number of powers of distance in attraction force calculations
     const double POWERS_OF_GCD = 2.5; // 引力計算における最大公約数の累乗数  Number of powers of GCD in attraction force calculations
     const double RADIUS_OF_COLLISION = 16; // 数字の当たり判定の半径
     const double COEFFICIENT_OF_RESTITUTION = 0.90; // 反発係数
