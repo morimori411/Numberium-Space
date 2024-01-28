@@ -8,6 +8,7 @@
 #include "../Common/Vector.h"
 #include "Fonts.h"
 #include "Textures.h"
+#include "Camera.h"
 
 namespace pictures{
     // ピクチャの表示レイヤ 後ろにあるほど画面の前面に近い  The display layer of the picture. The further back it is, the closer it is to the front of the screen.
@@ -56,6 +57,8 @@ namespace pictures{
         std::string GetPath() const {return m_path;}
         std::string GetText() const {return m_text;}
         uint16_t GetPt() const {return m_pt;}
+        common::Vec2 GetXY() const {return m_xy;}
+        common::Vec2 GetScale() const {return m_scale;}
         bool GetInAnimation() const {return m_in_animation;}
         // セッター  Setter
         void SetXY(common::Vec2 xy){m_xy = xy;}
@@ -105,11 +108,12 @@ namespace pictures{
         std::map<pictures::Layer, std::map<int32_t, pictures::Picture*>> m_pictures; // 表示するピクチャをレイヤーとレイヤー内の番号で管理する  Manage pictures to be displayed by layer and number in the layer
         pictures::Textures* m_textures;
         pictures::TextTextures* m_text_textures;
+        pictures::Camera* m_camera;
         bool changed; // 画面に変化がない場合にDisplayAll()が動かないようにするためのフラグ  Flag to prevent DisplayAll() from working if there is no change on the screen
         
         public:
         // コンストラクタ  Constructor
-        Pictures(game::Game* game, pictures::Textures* textures, pictures::TextTextures* text_textures);
+        Pictures(game::Game* game, pictures::Textures* textures, pictures::TextTextures* text_textures, pictures::Camera* camera);
         // デストラクタ  Destructor
         ~Pictures();
         // 表示するピクチャを追加する  Add picture on display
