@@ -34,6 +34,7 @@ namespace pictures{
         double m_angle_rad; // ピクチャの回転角度[rad]  Picture rotation angle[rad]
         SDL_RendererFlip m_flip; // ピクチャの縦横反転  Flip picture horizontally and vertically
         SDL_Color m_color; // 色調補正  Color modulation
+        bool m_is_camera_target; // Whether the camera control is affected or not
         bool m_in_animation; // アニメーション中かどうか  Whether animation is in progress or not
         int64_t m_start_game_frame; // アニメーションのゲーム起動から数えた開始フレーム  Start frame of animation counted from game startup.
         common::Vec2 m_num_of_segs; // ピクチャの分割数（アニメーション用）  Number of segmentation of picture (for animation) 
@@ -59,6 +60,7 @@ namespace pictures{
         uint16_t GetPt() const {return m_pt;}
         common::Vec2 GetXY() const {return m_xy;}
         common::Vec2 GetScale() const {return m_scale;}
+        bool GetIsCameraTarget() const {return m_is_camera_target;}
         bool GetInAnimation() const {return m_in_animation;}
         // セッター  Setter
         void SetXY(common::Vec2 xy){m_xy = xy;}
@@ -80,6 +82,7 @@ namespace pictures{
         void SetFlip(SDL_RendererFlip flip){m_flip = flip;}
         void SetInAnimation(bool in_animation){m_in_animation = in_animation;}
         void SetStartGameFrame(int64_t start_game_frame){m_start_game_frame = start_game_frame;}
+        void SetIsCameraTarget(bool is_camera_target){m_is_camera_target = is_camera_target;}
         void SetAnimation(common::Vec2 num_of_segs, int32_t start_frame, int32_t last_frame, double fpf){
             m_num_of_segs = num_of_segs;
             m_start_seg = start_frame;
@@ -163,6 +166,11 @@ namespace pictures{
         bool SetFlip(pictures::LayerAndNo layer_and_no, SDL_RendererFlip flip){
             if(!m_pictures[layer_and_no.m_layer].count(layer_and_no.m_no)) return 1;
             m_pictures[layer_and_no.m_layer][layer_and_no.m_no]->SetFlip(flip);
+            return 0;
+        }
+        bool SetIsCameraTarget(pictures::LayerAndNo layer_and_no, bool is_camera_target){
+            if(!m_pictures[layer_and_no.m_layer].count(layer_and_no.m_no)) return 1;
+            m_pictures[layer_and_no.m_layer][layer_and_no.m_no]->SetIsCameraTarget(is_camera_target);
             return 0;
         }
         bool SetAnimation(pictures::LayerAndNo layer_and_no, common::Vec2 num_of_segs, int32_t start_frame, int32_t last_frame, double fpf){

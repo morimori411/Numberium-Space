@@ -18,6 +18,7 @@ numbers::Number::Number(game::Game* game, pictures::Pictures* pictures, int32_t 
     m_pictures->SetPosition(m_layerno, 5);
     vivid::rgb_t rgb = vivid::rgb::fromHsl(m_color);
     m_pictures->SetRGBA(m_layerno, rgb.r * UINT8_MAX, rgb.g * UINT8_MAX, rgb.b * UINT8_MAX, UINT8_MAX);
+    m_pictures->SetIsCameraTarget(m_layerno, true);
 }
 
 numbers::Number::~Number(){
