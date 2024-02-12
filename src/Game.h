@@ -26,6 +26,8 @@ namespace game{
         SDL_Renderer* m_renderer; // レンダラーオブジェクト  Renderer object
         uint64_t m_ticks; // ゲーム開始から現在フレームの開始までのミリ秒  Milliseconds from game start to start of current frame
         uint64_t m_frames; // 現在フレームまでのフレーム数  Frames from game start to present
+        int32_t m_window_width; // ウィンドウの横幅
+        int32_t m_window_height; // ウィンドウの縦幅
         bool m_is_running; // ゲームが起動中かどうか falseに設定することでゲーム終了  Whether the game is running. Set to false to exit the main loop.
 
         public:
@@ -39,6 +41,8 @@ namespace game{
         SDL_Renderer* GetRenderer() const {return m_renderer;}
         uint64_t GetTicks() const {return m_ticks;}
         uint64_t GetFrames() const {return m_frames;}
+        int32_t GetWindowWidth() const {return m_window_width;}
+        int32_t GetWindowHeight() const {return m_window_height;}
         bool GetIsRunning() const {return m_is_running;}
         // セッター  Setter
         void SetTicks(uint64_t ticks){m_ticks = ticks;}

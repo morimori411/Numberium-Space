@@ -17,7 +17,6 @@ int main(int argc, char* argv[]){
     textures->LoadFile("data/images/back.jpg");
     textures->LoadFile("data/images/hor_line.png");
     textures->LoadFile("data/images/ver_line.png");
-    pictures->Add({pictures::UI, 0}, "data/images/back.jpg", {5000, 0});
     pictures->SetIsCameraTarget({pictures::UI, 0}, true);
     stage->Display();
     bool current_left_button, old_left_button;// 左クリックの状態  Left-click status
@@ -60,19 +59,19 @@ int main(int argc, char* argv[]){
         if(camera->GetXY().m_y < 0){
             camera->SetXY({camera->GetXY().m_x, 0});
         }
-        if(camera->GetXY().m_x + game::WINDOW_WIDTH * (1 / camera->GetZoom()) > stage->GetWidth()){
-            camera->SetXY({stage->GetWidth() - game::WINDOW_WIDTH * (1 / camera->GetZoom()), camera->GetXY().m_y});
+        if(camera->GetXY().m_x + game->GetWindowWidth() * (1 / camera->GetZoom()) > stage->GetWidth()){
+            camera->SetXY({stage->GetWidth() - game->GetWindowWidth() * (1 / camera->GetZoom()), camera->GetXY().m_y});
         }
-        if(camera->GetXY().m_y + game::WINDOW_HEIGHT * (1 / camera->GetZoom()) > stage->GetHeight()){
-            camera->SetXY({camera->GetXY().m_x, stage->GetHeight() - game::WINDOW_HEIGHT * (1 / camera->GetZoom())});
+        if(camera->GetXY().m_y + game->GetWindowHeight() * (1 / camera->GetZoom()) > stage->GetHeight()){
+            camera->SetXY({camera->GetXY().m_x, stage->GetHeight() - game->GetWindowHeight() * (1 / camera->GetZoom())});
         }
         // カメラの範囲がステージより大きいとき  When camera range is larger that stage
-        if(game::WINDOW_WIDTH * (1 / camera->GetZoom()) > stage->GetWidth()){
+        if(game->GetWindowWidth() * (1 / camera->GetZoom()) > stage->GetWidth()){
             // 強制的にカメラを中央へ持ってくる  Move the camera forcibly to the center of stage
-            camera->SetXY({stage->GetWidth() / 2 - game::WINDOW_WIDTH * (1 / camera->GetZoom()) / 2, camera->GetXY().m_y});
+            camera->SetXY({stage->GetWidth() / 2 - game->GetWindowWidth() * (1 / camera->GetZoom()) / 2, camera->GetXY().m_y});
         }
-        if(game::WINDOW_HEIGHT * (1 / camera->GetZoom()) > stage->GetHeight()){
-            camera->SetXY({camera->GetXY().m_x, stage->GetHeight() / 2 - game::WINDOW_HEIGHT * (1 / camera->GetZoom()) / 2});
+        if(game->GetWindowHeight() * (1 / camera->GetZoom()) > stage->GetHeight()){
+            camera->SetXY({camera->GetXY().m_x, stage->GetHeight() / 2 - game->GetWindowHeight() * (1 / camera->GetZoom()) / 2});
         }
         // 現在の左クリック状態を次のフレームへ引き継ぐ  The current left-click state is carried over to the next frame.
         old_left_button = current_left_button;
