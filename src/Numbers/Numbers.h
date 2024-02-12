@@ -8,6 +8,7 @@
 #include "../Stage/Stage.h"
 
 namespace numbers{
+    const int16_t PTSIZE = 24; // フォントサイズ  Font size
     const uint32_t ADD_FREQUENCY = 30; // 数字が追加される頻度[フレーム]  Frequency with which numbers are added[frame]
     const uint32_t DELETE_FREQUENCY = 5000; // 数字が削除される頻度[フレーム]  Frequency with which numbers are deleted[frame]
     const uint32_t STANDARD_DEVIATION = 50; // 標準偏差

@@ -13,7 +13,7 @@ int main(int argc, char* argv[]){
 
     // メインループ  Main loop
     SDL_Event event;
-    fonts->LoadFont("data/fonts/MPLUS1Code-Regular.ttf");
+    fonts->LoadFont("data/fonts/MPLUS1Code-SemiBold.ttf");
     textures->LoadFile("data/images/back.jpg");
     textures->LoadFile("data/images/hor_line.png");
     textures->LoadFile("data/images/ver_line.png");

@@ -10,11 +10,11 @@ numbers::Number::Number(game::Game* game, pictures::Pictures* pictures, int32_t 
 {
     m_collision = new collision::Circle(game, m_coordinate.m_x, m_coordinate.m_y, RADIUS_OF_COLLISION);
     m_layerno = {pictures::NUMBER, m_id};
-    m_color = vivid::hsl_t(0.7, 1.0, 0.5);
+    m_color = vivid::hsl_t(0.7, 0.5, 0.5);
     // 数字の大きさに応じて色相を変える  change hue according to the largeness of number
     m_color.x -= 0.5 * (m_value / (STANDARD_DEVIATION * 1.5));
     m_color.x = fmod(m_color.x, 1.0);
-    m_pictures->Add(m_layerno, "data/fonts/MPLUS1Code-Regular.ttf", std::to_string(m_value), 22, m_coordinate);
+    m_pictures->Add(m_layerno, "data/fonts/MPLUS1Code-SemiBold.ttf", std::to_string(m_value), numbers::PTSIZE, m_coordinate);
     m_pictures->SetPosition(m_layerno, 5);
     vivid::rgb_t rgb = vivid::rgb::fromHsl(m_color);
     m_pictures->SetRGBA(m_layerno, rgb.r * UINT8_MAX, rgb.g * UINT8_MAX, rgb.b * UINT8_MAX, UINT8_MAX);

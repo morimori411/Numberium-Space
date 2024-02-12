@@ -7,7 +7,7 @@
 #include "../Collision/DrawCollision.h"
 
 namespace stage{
-    const int DIST_BETWEEN_LINE = 300;
+    const int DIST_BETWEEN_LINE = 500;
 
     class Stage{
         private:
