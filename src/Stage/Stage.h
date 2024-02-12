@@ -2,13 +2,17 @@
 
 #include <stdint.h>
 #include "../Game.h"
+#include "../Pictures/Pictures.h"
 #include "../Collision/Collision.h"
 #include "../Collision/DrawCollision.h"
 
 namespace stage{
+    const int DIST_BETWEEN_LINE = 300;
+
     class Stage{
         private:
         game::Game* m_game;
+        pictures::Pictures* m_pictures;
         uint16_t m_height; // 高さ
         uint16_t m_width; // 幅
         collision::Rectangle* m_right; // 右の壁の当たり判定  Right wall collision detection
@@ -17,7 +21,7 @@ namespace stage{
         collision::Rectangle* m_top; // 上の壁の当たり判定  Top wall collision detection
 
         public:
-        Stage(game::Game* game, uint64_t height, uint64_t width);
+        Stage(game::Game* game, pictures::Pictures* pictures, uint64_t height, uint64_t width);
         ~Stage();
         // 壁を表示
         void Display();

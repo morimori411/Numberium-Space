@@ -11,6 +11,7 @@ pictures::Picture::Picture(game::Game* game, pictures::Textures* textures, std::
 ,m_angle_rad(0.0)
 ,m_flip(SDL_FLIP_NONE)
 ,m_num_of_segs(1, 1)
+,m_is_camera_target(false)
 ,m_in_animation(false)
 ,m_start_seg(0)
 ,m_last_seg(0)
@@ -233,11 +234,13 @@ bool pictures::Pictures::DisplayAll(){
     for(auto itr1 = m_pictures.begin(); itr1 != m_pictures.end(); itr1++){
         for(auto itr2 = itr1->second.begin(); itr2 != itr1->second.end(); itr2++){
             pictures::Picture* picture = itr2->second;
-            // カメラに応じて表示座標とサイズを調整  Adjust display coordinates and size according to camera
             common::Vec2 old_xy = picture->GetXY();
             common::Vec2 old_scale = picture->GetScale();
-            picture->SetXY((picture->GetXY() - m_camera->GetXY()) * m_camera->GetZoom());
-            picture->SetScale(picture->GetScale() * m_camera->GetZoom());
+            // カメラに応じて表示座標とサイズを調整  Adjust display coordinates and size according to camera
+            if(picture->GetIsCameraTarget()){
+                picture->SetXY((picture->GetXY() - m_camera->GetXY()) * m_camera->GetZoom());
+                picture->SetScale(picture->GetScale() * m_camera->GetZoom());
+            }
             // アニメーション中の時  When in animation
             if(itr2->second->GetInAnimation()){
                 failed = itr2->second->Animation();
@@ -254,8 +257,10 @@ bool pictures::Pictures::DisplayAll(){
                 }
             }
             // カメラに応じて調整した表示座標とサイズを元に戻す  Restore display coordinates and size adjusted according to camera
-            picture->SetXY(old_xy);
-            picture->SetScale(old_scale);
+            if(picture->GetIsCameraTarget()){
+                picture->SetXY(old_xy);
+                picture->SetScale(old_scale);
+            }
         }
     }
     SDL_RenderPresent(m_game->GetRenderer());

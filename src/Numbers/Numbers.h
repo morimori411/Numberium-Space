@@ -2,6 +2,7 @@
 
 #include <random>
 #include <algorithm>
+#include <vivid/vivid.h>
 #include "../Pictures/Pictures.h"
 #include "../Common/Vector.h"
 #include "../Stage/Stage.h"
@@ -26,6 +27,7 @@ namespace numbers{
         common::Vec2 m_coordinate; // 座標
         common::Vec2 m_velocity; // 速度
         common::Vec2 m_acceleration; // 加速度
+        vivid::hsl_t m_color;
 
         public:
         Number(game::Game* game, pictures::Pictures* pictures, int32_t id, int64_t value, common::Vec2 coordinate);
