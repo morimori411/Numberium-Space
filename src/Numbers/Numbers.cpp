@@ -23,6 +23,7 @@ numbers::Number::Number(game::Game* game, pictures::Pictures* pictures, int32_t 
 
 numbers::Number::~Number(){
     m_pictures->Delete(m_layerno);
+    delete m_collision;
 }
 
 void numbers::Number::Move(){
