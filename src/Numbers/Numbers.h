@@ -3,8 +3,8 @@
 #include <random>
 #include <algorithm>
 #include <vivid/vivid.h>
-#include "../Pictures/Pictures.h"
-#include "../Common/Vector.h"
+#include <morimori_sdl.h>
+#include "../Layer.h"
 #include "../Stage/Stage.h"
 
 namespace numbers{
@@ -23,7 +23,7 @@ namespace numbers{
         pictures::Pictures* m_pictures;
         collision::Circle* m_collision;
         int32_t m_id; // 各数字に個別に割り振る番号  Number to be assigned to each digit individually
-        pictures::LayerAndNo m_layerno;
+        pictures::LayerNo m_layerno;
         int64_t m_value;
         common::Vec2 m_coordinate; // 座標
         common::Vec2 m_velocity; // 速度
@@ -54,9 +54,10 @@ namespace numbers{
         stage::Stage* m_stage;
         int32_t m_id;
         std::map<int32_t, Number*> m_numbers;
+        uint16_t m_simulation_accuracy;
 
         public:
-        Numbers(game::Game* game, pictures::Pictures* pictures, stage::Stage* stage);
+        Numbers(game::Game* game, pictures::Pictures* pictures, stage::Stage* stage, uint16_t simulation_accuracy);
         ~Numbers();
         // 毎フレーム呼び出し 数字をランダムに追加  Every frame call. Add numbers randomly.
         void Add();

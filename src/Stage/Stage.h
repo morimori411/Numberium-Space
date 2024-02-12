@@ -1,10 +1,8 @@
 #pragma once
 
 #include <stdint.h>
-#include "../Game.h"
-#include "../Pictures/Pictures.h"
-#include "../Collision/Collision.h"
-#include "../Collision/DrawCollision.h"
+#include <morimori_sdl.h>
+#include "../Layer.h"
 
 namespace stage{
     const int DIST_BETWEEN_LINE = 500;

@@ -19,6 +19,7 @@ SDL: https://github.com/libsdl-org/SDL
 SDL_image: https://github.com/libsdl-org/SDL_image
 SDL_ttf: https://github.com/libsdl-org/SDL_ttf
 vivid: https://github.com/gurki/vivid
+morimori_sdl: https://github.com/morimori411/morimori_sdl
 
 ## バグ報告 Bug Reports
 バグ報告はGithubのIssue、Itch.ioのコメント、または開発者のTwitterからお願いします。

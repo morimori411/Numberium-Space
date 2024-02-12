@@ -9,7 +9,7 @@ numbers::Number::Number(game::Game* game, pictures::Pictures* pictures, int32_t 
 ,m_acceleration(0, 0)
 {
     m_collision = new collision::Circle(game, m_coordinate.m_x, m_coordinate.m_y, RADIUS_OF_COLLISION);
-    m_layerno = {pictures::NUMBER, m_id};
+    m_layerno = {my_main::Layer::NUMBER, m_id};
     m_color = vivid::hsl_t(0.7, 0.5, 0.5);
     // 数字の大きさに応じて色相を変える  change hue according to the largeness of number
     m_color.x -= 0.5 * (m_value / (STANDARD_DEVIATION * 1.5));
@@ -40,11 +40,12 @@ void numbers::Number::Display(){
     m_pictures->SetXY(m_layerno, m_coordinate);
 }
 
-numbers::Numbers::Numbers(game::Game* game, pictures::Pictures* pictures, stage::Stage* stage)
+numbers::Numbers::Numbers(game::Game* game, pictures::Pictures* pictures, stage::Stage* stage, uint16_t simulation_accuracy)
 :m_game(game)
 ,m_pictures(pictures)
 ,m_stage(stage)
 ,m_id(0)
+,m_simulation_accuracy(simulation_accuracy)
 {}
 
 numbers::Numbers::~Numbers(){
@@ -99,7 +100,7 @@ void numbers::Numbers::CalcAttraction(){
             double dist = pow(sqrt(common::dist(number1->GetCoordinate().m_x, number1->GetCoordinate().m_y, number2->GetCoordinate().m_x, number2->GetCoordinate().m_y)), -POWERS_OF_DIST);
             common::Vec2 distxy = number2->GetCoordinate() - number1->GetCoordinate();
             int64_t gcd = std::gcd(number1->GetValue(), number2->GetValue());
-            double attraction_mag = (CONSTANT_OF_ATTRACTION / std::pow(game::SIMULATION_ACCURACY, 2)) * std::pow((gcd - 1), POWERS_OF_GCD) / dist;
+            double attraction_mag = (CONSTANT_OF_ATTRACTION / std::pow(m_simulation_accuracy, 2)) * std::pow((gcd - 1), POWERS_OF_GCD) / dist;
             common::Vec2 attraction = {attraction_mag * (distxy.m_x / dist), attraction_mag * (distxy.m_y / dist)};
             number1->SetAcceleration(number1->GetAcceleration() + attraction);
         }
