@@ -16,6 +16,6 @@ namespace my_main{
     const uint32_t FPS = 60;
     const uint16_t SIMULATION_ACCURACY = 10; // fpsに対する内部フレームの倍率  Internal frame multiplier relative to fps
 
-    const double MAX_CAMERA_ZOOM = 0.3;
+    const double MAX_CAMERA_ZOOM = 0.2;
     const double CAMERA_ZOOM_STEP = 0.1;
 }

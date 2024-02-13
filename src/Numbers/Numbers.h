@@ -8,6 +8,10 @@
 #include "../Stage/Stage.h"
 
 namespace numbers{
+    const double DEFAULT_HUE = 0.7; // 初期状態の色相  Initial state hue
+    const double HUE_CHANGE_RATE = 3.0; // 標準偏差に対する色相の変化度  Degree of hue change relative to standard deviation
+    const double SATURATION = 0.5; // 彩度
+    const double LIGHTNESS = 0.5; // 輝度
     const int16_t PTSIZE = 24; // フォントサイズ  Font size
     const uint32_t ADD_FREQUENCY = 30; // 数字が追加される頻度[フレーム]  Frequency with which numbers are added[frame]
     const uint32_t DELETE_FREQUENCY = 5000; // 数字が削除される頻度[フレーム]  Frequency with which numbers are deleted[frame]
