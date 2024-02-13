@@ -14,6 +14,7 @@ int main(int argc, char* argv[]){
     pictures::Fonts* fonts = new pictures::Fonts;
     pictures::TextTextures* text_textures = new pictures::TextTextures(game, fonts);
     pictures::Camera* camera = new pictures::Camera;
+    camera->SetZoom(0.2);
     pictures::Pictures* pictures = new pictures::Pictures(game, textures, text_textures, camera);
     stage::Stage* stage = new stage::Stage(game, pictures, 5000, 5000);
     numbers::Numbers* numbers = new numbers::Numbers(game, pictures, stage, my_main::SIMULATION_ACCURACY);
