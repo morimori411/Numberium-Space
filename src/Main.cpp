@@ -1,7 +1,14 @@
 #include "Main.h"
 
 int main(int argc, char* argv[]){
-    game::Game* game = new game::Game;
+    game::Game* game = new game::Game(
+        my_main::GAME_TITLE,
+        my_main::FLAGS_SDL_INIT,
+        my_main::FLAGS_IMG_INIT,
+        my_main::WINDOW_FLAGS,
+        my_main::RENDERER_FLAGS,
+        my_main::FPS
+    );
     game->Initialize();
     pictures::Textures* textures = new pictures::Textures(game);
     pictures::Fonts* fonts = new pictures::Fonts;
@@ -9,7 +16,7 @@ int main(int argc, char* argv[]){
     pictures::Camera* camera = new pictures::Camera;
     pictures::Pictures* pictures = new pictures::Pictures(game, textures, text_textures, camera);
     stage::Stage* stage = new stage::Stage(game, pictures, 5000, 5000);
-    numbers::Numbers* numbers = new numbers::Numbers(game, pictures, stage);
+    numbers::Numbers* numbers = new numbers::Numbers(game, pictures, stage, my_main::SIMULATION_ACCURACY);
 
     // メインループ  Main loop
     SDL_Event event;
@@ -17,7 +24,6 @@ int main(int argc, char* argv[]){
     textures->LoadFile("data/images/back.jpg");
     textures->LoadFile("data/images/hor_line.png");
     textures->LoadFile("data/images/ver_line.png");
-    pictures->SetIsCameraTarget({pictures::UI, 0}, true);
     stage->Display();
     bool current_left_button, old_left_button;// 左クリックの状態  Left-click status
     int32_t mouse_x, mouse_y; // マウスの座標  Mouse coordinates
@@ -77,7 +83,7 @@ int main(int argc, char* argv[]){
         old_left_button = current_left_button;
         numbers->Add();
         numbers->Delete();
-        for(int i = 0; i < game::SIMULATION_ACCURACY; i++){
+        for(int i = 0; i < my_main::SIMULATION_ACCURACY; i++){
             numbers->CalcAttraction();
             numbers->MoveAll();
             numbers->CalcCollisionAll();
