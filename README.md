@@ -1,5 +1,5 @@
-**バージョン1.0.0をItch.ioにてリリースしました！**  
-**Version 1.0.0 is available on Itch.io now!**  
+**バージョン1.0.1をItch.ioにてリリースしました！**  
+**Version 1.0.1 is available on Itch.io now!**  
 **https://morimori411.itch.io/numberium**
 
 ## どんなゲーム？ What is this game?  
