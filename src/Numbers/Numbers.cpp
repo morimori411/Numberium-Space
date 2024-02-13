@@ -1,6 +1,6 @@
 #include "Numbers.h"
 
-numbers::Number::Number(game::Game* game, pictures::Pictures* pictures, int32_t id, int64_t value, common::Vec2 coordinate)
+numbers::Number::Number(game::Game* game, pictures::Pictures* pictures, int32_t id, int64_t value, common::Vec2<double> coordinate)
 :m_pictures(pictures)
 ,m_id(id)
 ,m_value(value)
@@ -98,10 +98,10 @@ void numbers::Numbers::CalcAttraction(){
             numbers::Number* number1 = itr1->second;
             numbers::Number* number2 = itr2->second;
             double dist = pow(sqrt(common::dist(number1->GetCoordinate().m_x, number1->GetCoordinate().m_y, number2->GetCoordinate().m_x, number2->GetCoordinate().m_y)), -POWERS_OF_DIST);
-            common::Vec2 distxy = number2->GetCoordinate() - number1->GetCoordinate();
+            common::Vec2<double> distxy = number2->GetCoordinate() - number1->GetCoordinate();
             int64_t gcd = std::gcd(number1->GetValue(), number2->GetValue());
             double attraction_mag = (CONSTANT_OF_ATTRACTION / std::pow(m_simulation_accuracy, 2)) * std::pow((gcd - 1), POWERS_OF_GCD) / dist;
-            common::Vec2 attraction = {attraction_mag * (distxy.m_x / dist), attraction_mag * (distxy.m_y / dist)};
+            common::Vec2<double> attraction = {attraction_mag * (distxy.m_x / dist), attraction_mag * (distxy.m_y / dist)};
             number1->SetAcceleration(number1->GetAcceleration() + attraction);
         }
     }
@@ -127,13 +127,13 @@ void numbers::Numbers::CalcCollisionAll(){
             auto itr2 = next(m_numbers.begin(), order[j]);
             numbers::Number* number2 = itr2->second;
             // 2つの数字が衝突している場合  If two numbers are in collision
-            float dir = collision::isInCollision(number1->GetCollision(), number2->GetCollision());
+            double dir = collision::isInCollision(number1->GetCollision(), number2->GetCollision());
             if(dir != -1){
                 // 数字を移動前の位置に戻す  Restore numbers to their pre-movement positions
-                number2->SetCoordinate(number1->GetCoordinate() + common::Vec2(RADIUS_OF_COLLISION * 2.01 * cos(dir + M_PI), RADIUS_OF_COLLISION * 2.01 * sin(dir + M_PI)));
+                number2->SetCoordinate(number1->GetCoordinate() + common::Vec2<double>(RADIUS_OF_COLLISION * 2.01 * cos(dir + M_PI), RADIUS_OF_COLLISION * 2.01 * sin(dir + M_PI)));
                 // 2つの数字の速度ベクトルを衝突方向に分解し、入れ替える  Resolution and swap the velocity vectors of two numbers in the direction of collision
                 double resolution_vec_mag1, resolution_vec_mag2;
-                common::Vec2 resolution_vec1, resolution_vec2;
+                common::Vec2<double> resolution_vec1, resolution_vec2;
                 resolution_vec_mag1 = number1->GetVelocity().CalcMag() * std::cos(number1->GetVelocity().CalcDir() - dir);
                 resolution_vec_mag2 = number2->GetVelocity().CalcMag() * std::cos(number2->GetVelocity().CalcDir() - (dir + M_PI));
                 resolution_vec1.m_x = resolution_vec_mag1 * cos(dir);

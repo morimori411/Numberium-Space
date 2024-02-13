@@ -25,25 +25,25 @@ namespace numbers{
         int32_t m_id; // 各数字に個別に割り振る番号  Number to be assigned to each digit individually
         pictures::LayerNo m_layerno;
         int64_t m_value;
-        common::Vec2 m_coordinate; // 座標
-        common::Vec2 m_velocity; // 速度
-        common::Vec2 m_acceleration; // 加速度
+        common::Vec2<double> m_coordinate; // 座標
+        common::Vec2<double> m_velocity; // 速度
+        common::Vec2<double> m_acceleration; // 加速度
         vivid::hsl_t m_color;
 
         public:
-        Number(game::Game* game, pictures::Pictures* pictures, int32_t id, int64_t value, common::Vec2 coordinate);
+        Number(game::Game* game, pictures::Pictures* pictures, int32_t id, int64_t value, common::Vec2<double> coordinate);
         ~Number();
         void Move();
         void Display();
         // アクセサ  Accessor
         collision::Circle* GetCollision() const {return m_collision;}
         int64_t GetValue() const {return m_value;}
-        common::Vec2 GetCoordinate() const {return m_coordinate;}
-        common::Vec2 GetVelocity() const {return m_velocity;}
-        common::Vec2 GetAcceleration() const {return m_acceleration;}
-        void SetCoordinate(common::Vec2 coordinate){m_coordinate = coordinate;}
-        void SetVelocity(common::Vec2 velocity){m_velocity = velocity;}
-        void SetAcceleration(common::Vec2 acceleration){m_acceleration = acceleration;}
+        common::Vec2<double> GetCoordinate() const {return m_coordinate;}
+        common::Vec2<double> GetVelocity() const {return m_velocity;}
+        common::Vec2<double> GetAcceleration() const {return m_acceleration;}
+        void SetCoordinate(common::Vec2<double> coordinate){m_coordinate = coordinate;}
+        void SetVelocity(common::Vec2<double> velocity){m_velocity = velocity;}
+        void SetAcceleration(common::Vec2<double> acceleration){m_acceleration = acceleration;}
     };
 
     class Numbers{

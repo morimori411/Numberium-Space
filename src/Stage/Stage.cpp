@@ -22,8 +22,10 @@ stage::Stage::~Stage(){
 void stage::Stage::Display(){
     // 背景  Background
     m_pictures->Add({my_main::Layer::BACK, 0}, "data/images/back.jpg", {0, 0});
+    common::Vec2<float> back_jpg_size = m_pictures->GetTextures()->GetTextureSize("data/images/back.jpg");
+    m_pictures->SetScale({my_main::Layer::BACK, 0}, common::Vec2<float>(m_game->GetWindowSize().m_x / back_jpg_size.m_x, m_game->GetWindowSize().m_y / back_jpg_size.m_y));
     //線 line
-    common::Vec2 center_of_stage(m_width / 2, m_height / 2);
+    common::Vec2<int16_t> center_of_stage(m_width / 2, m_height / 2);
     for(int y = center_of_stage.m_y - m_height; y <= center_of_stage.m_x + m_height; y += DIST_BETWEEN_LINE){
         pictures::LayerNo layerno = {my_main::Layer::HOR_LINE, y};
         m_pictures->Add(layerno, "data/images/ver_line.png", {0, static_cast<double>(y)});
