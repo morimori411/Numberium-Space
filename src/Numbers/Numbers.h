@@ -3,11 +3,15 @@
 #include <random>
 #include <algorithm>
 #include <vivid/vivid.h>
-#include "../Pictures/Pictures.h"
-#include "../Common/Vector.h"
+#include <morimori_sdl.h>
+#include "../Layer.h"
 #include "../Stage/Stage.h"
 
 namespace numbers{
+    const double DEFAULT_HUE = 0.7; // 初期状態の色相  Initial state hue
+    const double HUE_CHANGE_RATE = 3.0; // 標準偏差に対する色相の変化度  Degree of hue change relative to standard deviation
+    const double SATURATION = 0.5; // 彩度
+    const double LIGHTNESS = 0.5; // 輝度
     const int16_t PTSIZE = 24; // フォントサイズ  Font size
     const uint32_t ADD_FREQUENCY = 30; // 数字が追加される頻度[フレーム]  Frequency with which numbers are added[frame]
     const uint32_t DELETE_FREQUENCY = 5000; // 数字が削除される頻度[フレーム]  Frequency with which numbers are deleted[frame]
@@ -23,27 +27,27 @@ namespace numbers{
         pictures::Pictures* m_pictures;
         collision::Circle* m_collision;
         int32_t m_id; // 各数字に個別に割り振る番号  Number to be assigned to each digit individually
-        pictures::LayerAndNo m_layerno;
+        pictures::LayerNo m_layerno;
         int64_t m_value;
-        common::Vec2 m_coordinate; // 座標
-        common::Vec2 m_velocity; // 速度
-        common::Vec2 m_acceleration; // 加速度
+        common::Vec2<double> m_coordinate; // 座標
+        common::Vec2<double> m_velocity; // 速度
+        common::Vec2<double> m_acceleration; // 加速度
         vivid::hsl_t m_color;
 
         public:
-        Number(game::Game* game, pictures::Pictures* pictures, int32_t id, int64_t value, common::Vec2 coordinate);
+        Number(game::Game* game, pictures::Pictures* pictures, int32_t id, int64_t value, common::Vec2<double> coordinate);
         ~Number();
         void Move();
         void Display();
         // アクセサ  Accessor
         collision::Circle* GetCollision() const {return m_collision;}
         int64_t GetValue() const {return m_value;}
-        common::Vec2 GetCoordinate() const {return m_coordinate;}
-        common::Vec2 GetVelocity() const {return m_velocity;}
-        common::Vec2 GetAcceleration() const {return m_acceleration;}
-        void SetCoordinate(common::Vec2 coordinate){m_coordinate = coordinate;}
-        void SetVelocity(common::Vec2 velocity){m_velocity = velocity;}
-        void SetAcceleration(common::Vec2 acceleration){m_acceleration = acceleration;}
+        common::Vec2<double> GetCoordinate() const {return m_coordinate;}
+        common::Vec2<double> GetVelocity() const {return m_velocity;}
+        common::Vec2<double> GetAcceleration() const {return m_acceleration;}
+        void SetCoordinate(common::Vec2<double> coordinate){m_coordinate = coordinate;}
+        void SetVelocity(common::Vec2<double> velocity){m_velocity = velocity;}
+        void SetAcceleration(common::Vec2<double> acceleration){m_acceleration = acceleration;}
     };
 
     class Numbers{
@@ -54,9 +58,10 @@ namespace numbers{
         stage::Stage* m_stage;
         int32_t m_id;
         std::map<int32_t, Number*> m_numbers;
+        uint16_t m_simulation_accuracy;
 
         public:
-        Numbers(game::Game* game, pictures::Pictures* pictures, stage::Stage* stage);
+        Numbers(game::Game* game, pictures::Pictures* pictures, stage::Stage* stage, uint16_t simulation_accuracy);
         ~Numbers();
         // 毎フレーム呼び出し 数字をランダムに追加  Every frame call. Add numbers randomly.
         void Add();
