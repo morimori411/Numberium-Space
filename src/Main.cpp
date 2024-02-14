@@ -21,10 +21,10 @@ int main(int argc, char* argv[]){
 
     // メインループ  Main loop
     SDL_Event event;
-    fonts->LoadFont("data/fonts/MPLUS1Code-SemiBold.ttf");
-    textures->LoadFile("data/images/back.jpg");
-    textures->LoadFile("data/images/hor_line.png");
-    textures->LoadFile("data/images/ver_line.png");
+    fonts->LoadFont("data/fonts/MPLUS1Code-SemiBold.ttf", "mplus");
+    textures->LoadFile("data/images/back.jpg", "back");
+    textures->LoadFile("data/images/hor_line.png", "hor");
+    textures->LoadFile("data/images/ver_line.png", "ver");
     stage->Display();
     bool current_left_button, old_left_button;// 左クリックの状態  Left-click status
     common::Vec2<int32_t> mouse_xy; // マウスの座標  Mouse coordinates

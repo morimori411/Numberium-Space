@@ -14,7 +14,7 @@ numbers::Number::Number(game::Game* game, pictures::Pictures* pictures, int32_t 
     // 数字の大きさに応じて色相を変える  change hue according to the largeness of number
     m_color.x -= m_value / (STANDARD_DEVIATION * HUE_CHANGE_RATE);
     m_color.x = fmod(m_color.x + 1.0, 1.0);
-    m_pictures->Add(m_layerno, "data/fonts/MPLUS1Code-SemiBold.ttf", std::to_string(m_value), numbers::PTSIZE, m_coordinate);
+    m_pictures->Add(m_layerno, "mplus", std::to_string(m_value), numbers::PTSIZE, m_coordinate);
     m_pictures->SetPosition(m_layerno, 5);
     vivid::rgb_t rgb = vivid::rgb::fromHsl(m_color);
     m_pictures->SetRGBA(m_layerno, rgb.r * UINT8_MAX, rgb.g * UINT8_MAX, rgb.b * UINT8_MAX, UINT8_MAX);
