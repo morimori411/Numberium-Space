@@ -8,7 +8,7 @@ numbers::Number::Number(game::Game* game, pictures::Pictures* pictures, int32_t 
 ,m_velocity(0, 0)
 ,m_acceleration(0, 0)
 {
-    m_collision = new collision::Circle(game, m_coordinate.m_x, m_coordinate.m_y, RADIUS_OF_COLLISION);
+    m_collision = new collision::Circle(game, m_coordinate.x, m_coordinate.y, RADIUS_OF_COLLISION);
     m_layerno = {my_main::Layer::NUMBER, m_id};
     m_color = vivid::hsl_t(0.7, SATURATION, LIGHTNESS);
     // 数字の大きさに応じて色相を変える  change hue according to the largeness of number
@@ -32,8 +32,8 @@ void numbers::Number::Move(){
     // 速度から座標計算  Calculate coordinate from velocity
     m_coordinate += m_velocity;
     // 当たり判定を移動  Move collision
-    m_collision->center_display_x = m_coordinate.m_x;
-    m_collision->center_display_y = m_coordinate.m_y;
+    m_collision->center_display_x = m_coordinate.x;
+    m_collision->center_display_y = m_coordinate.y;
 }
 
 void numbers::Number::Display(){
@@ -79,7 +79,7 @@ void numbers::Numbers::Delete(){
             m_numbers.erase(itr);
         }
         // 数字がステージより100ピクセル以上外に出た場合  If the number is more than 100 pixels outside of the stage
-        double x = number->GetCoordinate().m_x, y = number->GetCoordinate().m_y;
+        double x = number->GetCoordinate().x, y = number->GetCoordinate().y;
         if(x < -100 || x > m_stage->GetWidth() || y < -100 || y > m_stage->GetHeight()){
             // 数字を削除  Delete number
             delete number;
@@ -97,11 +97,11 @@ void numbers::Numbers::CalcAttraction(){
             // 万有引力の法則の定数を変えて分子をGCDの3乗にした形  Form of GCD squared molecules by changing the constant of the universal law of gravitation
             numbers::Number* number1 = itr1->second;
             numbers::Number* number2 = itr2->second;
-            double dist = pow(sqrt(common::dist(number1->GetCoordinate().m_x, number1->GetCoordinate().m_y, number2->GetCoordinate().m_x, number2->GetCoordinate().m_y)), -POWERS_OF_DIST);
+            double dist = pow(sqrt(common::dist(number1->GetCoordinate().x, number1->GetCoordinate().y, number2->GetCoordinate().x, number2->GetCoordinate().y)), -POWERS_OF_DIST);
             common::Vec2<double> distxy = number2->GetCoordinate() - number1->GetCoordinate();
             int64_t gcd = std::gcd(number1->GetValue(), number2->GetValue());
             double attraction_mag = (CONSTANT_OF_ATTRACTION / std::pow(m_simulation_accuracy, 2)) * std::pow((gcd - 1), POWERS_OF_GCD) / dist;
-            common::Vec2<double> attraction = {attraction_mag * (distxy.m_x / dist), attraction_mag * (distxy.m_y / dist)};
+            common::Vec2<double> attraction = {attraction_mag * (distxy.x / dist), attraction_mag * (distxy.y / dist)};
             number1->SetAcceleration(number1->GetAcceleration() + attraction);
         }
     }
@@ -136,10 +136,10 @@ void numbers::Numbers::CalcCollisionAll(){
                 common::Vec2<double> resolution_vec1, resolution_vec2;
                 resolution_vec_mag1 = number1->GetVelocity().CalcMag() * std::cos(number1->GetVelocity().CalcDir() - dir);
                 resolution_vec_mag2 = number2->GetVelocity().CalcMag() * std::cos(number2->GetVelocity().CalcDir() - (dir + M_PI));
-                resolution_vec1.m_x = resolution_vec_mag1 * cos(dir);
-                resolution_vec1.m_y = resolution_vec_mag1 * sin(dir);
-                resolution_vec2.m_x = resolution_vec_mag2 * cos(dir + M_PI);
-                resolution_vec2.m_y = resolution_vec_mag2 * sin(dir + M_PI);
+                resolution_vec1.x = resolution_vec_mag1 * cos(dir);
+                resolution_vec1.y = resolution_vec_mag1 * sin(dir);
+                resolution_vec2.x = resolution_vec_mag2 * cos(dir + M_PI);
+                resolution_vec2.y = resolution_vec_mag2 * sin(dir + M_PI);
                 number1->SetVelocity((number1->GetVelocity() - resolution_vec1 + resolution_vec2) * COEFFICIENT_OF_RESTITUTION);
                 number2->SetVelocity((number2->GetVelocity() - resolution_vec2 + resolution_vec1) * COEFFICIENT_OF_RESTITUTION);
             }

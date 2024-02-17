@@ -37,7 +37,7 @@ int main(int argc, char* argv[]){
         while(SDL_PollEvent(&event)){
             // ズーム  Zoom
             if(event.type == SDL_MOUSEWHEEL){
-                SDL_GetMouseState(&mouse_xy.m_x, &mouse_xy.m_y);
+                SDL_GetMouseState(&mouse_xy.x, &mouse_xy.y);
                 mouse_abs_xy = camera->GetXY() + static_cast<common::Vec2<double>>(mouse_xy) * (1 / camera->GetZoom());
                 camera->SetZoom(std::max(my_main::MAX_CAMERA_ZOOM, camera->GetZoom() + event.wheel.y * my_main::CAMERA_ZOOM_STEP));
                 camera->SetXY(mouse_abs_xy - static_cast<common::Vec2<double>>(mouse_xy) * (1 / camera->GetZoom()));
@@ -47,7 +47,7 @@ int main(int argc, char* argv[]){
         }
         // マウスでのカメラ操作  Camera operation with mouse
         // 新しく左クリックされたとき  When newly left-clicked
-        current_left_button = SDL_GetMouseState(&mouse_xy.m_x, &mouse_xy.m_y) & SDL_BUTTON(1);
+        current_left_button = SDL_GetMouseState(&mouse_xy.x, &mouse_xy.y) & SDL_BUTTON(1);
         if(current_left_button && !old_left_button){
             // ドラッグ開始
             drag_start_mouse_xy = mouse_xy;
@@ -59,25 +59,25 @@ int main(int argc, char* argv[]){
             camera->SetXY(drag_start_camera_xy - (static_cast<common::Vec2<double>>(mouse_xy) - drag_start_mouse_xy) * (1 / camera->GetZoom()));
         }
         // カメラをステージの範囲内に収める  Keep camera within stage range
-        if(camera->GetXY().m_x < 0){
-            camera->SetXY({0, camera->GetXY().m_y});
+        if(camera->GetXY().x < 0){
+            camera->SetXY({0, camera->GetXY().y});
         }
-        if(camera->GetXY().m_y < 0){
-            camera->SetXY({camera->GetXY().m_x, 0});
+        if(camera->GetXY().y < 0){
+            camera->SetXY({camera->GetXY().x, 0});
         }
-        if(camera->GetXY().m_x + game->GetWindowSize().m_x * (1 / camera->GetZoom()) > stage->GetWidth()){
-            camera->SetXY({stage->GetWidth() - game->GetWindowSize().m_x * (1 / camera->GetZoom()), camera->GetXY().m_y});
+        if(camera->GetXY().x + game->GetWindowSize().x * (1 / camera->GetZoom()) > stage->GetWidth()){
+            camera->SetXY({stage->GetWidth() - game->GetWindowSize().x * (1 / camera->GetZoom()), camera->GetXY().y});
         }
-        if(camera->GetXY().m_y + game->GetWindowSize().m_y * (1 / camera->GetZoom()) > stage->GetHeight()){
-            camera->SetXY({camera->GetXY().m_x, stage->GetHeight() - game->GetWindowSize().m_y * (1 / camera->GetZoom())});
+        if(camera->GetXY().y + game->GetWindowSize().y * (1 / camera->GetZoom()) > stage->GetHeight()){
+            camera->SetXY({camera->GetXY().x, stage->GetHeight() - game->GetWindowSize().y * (1 / camera->GetZoom())});
         }
         // カメラの範囲がステージより大きいとき  When camera range is larger that stage
-        if(game->GetWindowSize().m_x * (1 / camera->GetZoom()) > stage->GetWidth()){
+        if(game->GetWindowSize().x * (1 / camera->GetZoom()) > stage->GetWidth()){
             // 強制的にカメラを中央へ持ってくる  Move the camera forcibly to the center of stage
-            camera->SetXY({stage->GetWidth() / 2 - game->GetWindowSize().m_x * (1 / camera->GetZoom()) / 2, camera->GetXY().m_y});
+            camera->SetXY({stage->GetWidth() / 2 - game->GetWindowSize().x * (1 / camera->GetZoom()) / 2, camera->GetXY().y});
         }
-        if(game->GetWindowSize().m_y * (1 / camera->GetZoom()) > stage->GetHeight()){
-            camera->SetXY({camera->GetXY().m_x, stage->GetHeight() / 2 - game->GetWindowSize().m_y * (1 / camera->GetZoom()) / 2});
+        if(game->GetWindowSize().y * (1 / camera->GetZoom()) > stage->GetHeight()){
+            camera->SetXY({camera->GetXY().x, stage->GetHeight() / 2 - game->GetWindowSize().y * (1 / camera->GetZoom()) / 2});
         }
         // 現在の左クリック状態を次のフレームへ引き継ぐ  The current left-click state is carried over to the next frame.
         old_left_button = current_left_button;

@@ -7,6 +7,11 @@ add_executable(game
     src/Stage/Stage.cpp
     src/Numbers/Numbers.cpp
 )
+target_compile_options(
+  game PRIVATE
+  $<$<CXX_COMPILER_ID:GNU>: -Wall -Wextra>
+  $<$<CXX_COMPILER_ID:MSVC>: /W4>
+)
 find_package(SDL2)
 find_package(SDL2_image)
 find_package(SDL2_ttf)
